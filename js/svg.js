@@ -149,69 +149,13 @@ export function createGroup(
  *
  * @returns {SVGElement}
  */
-export function createSVGElement(
-    tag,
-    attributes = {},
-    children = null
-) {
-
+export function createSVGElement(tag) {
     if (typeof tag !== "string" || tag.trim() === "") {
-        throw new TypeError("createSVGElement(): 'tag' must be a non-empty string.");
+        throw new TypeError("createSVGElement(): tag must be a non-empty string.");
     }
 
-    const element = document.createElementNS(SVG_NS, tag);
-
-    Object.entries(attributes).forEach(([name, value]) => {
-
-        if (
-            value === undefined ||
-            value === null ||
-            value === false
-        ) {
-            return;
-        }
-
-        switch (name) {
-
-            case "href":
-                element.setAttributeNS(XLINK_NS, "href", value);
-                break;
-
-            case "xlink:href":
-                element.setAttributeNS(XLINK_NS, "href", value);
-                break;
-
-            case "xml:space":
-                element.setAttributeNS(XML_NS, "space", value);
-                break;
-
-            default:
-                element.setAttribute(name, String(value));
-
-        }
-
-    });
-
-    if (children) {
-
-        const list = Array.isArray(children)
-            ? children
-            : [children];
-
-        list.forEach(child => {
-
-            if (child instanceof Node) {
-                element.appendChild(child);
-            }
-
-        });
-
-    }
-
-    return element;
-
+    return document.createElementNS(SVG_NS, tag);
 }
-
 /**
  * ============================================================================
  * SVG Engine
@@ -219,11 +163,6 @@ export function createSVGElement(
  * Section: setAttributes()
  * ============================================================================
  */
-
-import {
-    XLINK_NS,
-    XML_NS
-} from "./constants.js";
 
 /**
  * Apply multiple attributes to an SVG element.
@@ -822,26 +761,6 @@ export function createPolygon(
     return polygon;
 
 }
-
-4. createDefs()
-
-Creates
-
-<defs>
-
-    gradients
-
-    filters
-
-    masks
-
-    clipPaths
-
-    patterns
-
-</defs>
-
-This becomes the heart of the SVG.
 
   /**
  * ============================================================================
@@ -2019,23 +1938,23 @@ export function createAmbientGlowFilter() {
 
     const merge = createSVGElement("feMerge");
 
-    appendChildren(
+   const blurNode = createSVGElement("feMergeNode");
 
-        merge,
+setAttributes(blurNode, {
+    in: "blur"
+});
 
-        createSVGElement("feMergeNode", {
+const sourceNode = createSVGElement("feMergeNode");
 
-            in: "blur"
+setAttributes(sourceNode, {
+    in: "SourceGraphic"
+});
 
-        }),
-
-        createSVGElement("feMergeNode", {
-
-            in: "SourceGraphic"
-
-        })
-
-    );
+appendChildren(
+    merge,
+    blurNode,
+    sourceNode
+);
 
     return createFilter(
 
@@ -2111,26 +2030,26 @@ export function createFlowerGlowFilter() {
 
     });
 
-    const merge = createSVGElement("feMerge");
+ const merge = createSVGElement("feMerge");
 
-    appendChildren(
+const coloredNode = createSVGElement("feMergeNode");
 
-        merge,
+setAttributes(coloredNode, {
+    in: "colored"
+});
 
-        createSVGElement("feMergeNode", {
+const sourceNode = createSVGElement("feMergeNode");
 
-            in: "colored"
+setAttributes(sourceNode, {
+    in: "SourceGraphic"
+});
 
-        }),
-
-        createSVGElement("feMergeNode", {
-
-            in: "SourceGraphic"
-
-        })
-
-    );
-
+appendChildren(
+    merge,
+    coloredNode,
+    sourceNode
+);
+    
     return createFilter(
 
         "flower-glow",
@@ -2213,23 +2132,23 @@ export function createBloomFilter() {
 
     const merge = createSVGElement("feMerge");
 
-    appendChildren(
+    const brightNode = createSVGElement("feMergeNode");
 
-        merge,
+setAttributes(brightNode, {
+    in: "bright"
+});
 
-        createSVGElement("feMergeNode", {
+const sourceNode = createSVGElement("feMergeNode");
 
-            in: "bright"
+setAttributes(sourceNode, {
+    in: "SourceGraphic"
+});
 
-        }),
-
-        createSVGElement("feMergeNode", {
-
-            in: "SourceGraphic"
-
-        })
-
-    );
+appendChildren(
+    merge,
+    brightNode,
+    sourceNode
+);
 
     return createFilter(
 
@@ -2295,24 +2214,24 @@ export function createLeafGlowFilter() {
 
     const merge = createSVGElement("feMerge");
 
-    appendChildren(
+   const blurNode = createSVGElement("feMergeNode");
 
-        merge,
+setAttributes(blurNode, {
+    in: "blur"
+});
 
-        createSVGElement("feMergeNode", {
+const sourceNode = createSVGElement("feMergeNode");
 
-            in: "blur"
+setAttributes(sourceNode, {
+    in: "SourceGraphic"
+});
 
-        }),
-
-        createSVGElement("feMergeNode", {
-
-            in: "SourceGraphic"
-
-        })
-
-    );
-
+appendChildren(
+    merge,
+    blurNode,
+    sourceNode
+);
+    
     return createFilter(
 
         "leaf-glow",
@@ -2373,23 +2292,24 @@ export function createStemSofteningFilter() {
 
     const merge = createSVGElement("feMerge");
 
-    appendChildren(
+    const blurNode = createSVGElement("feMergeNode");
 
-        merge,
+setAttributes(blurNode, {
+    in: "blur"
+});
 
-        createSVGElement("feMergeNode", {
+const sourceNode = createSVGElement("feMergeNode");
 
-            in: "blur"
+setAttributes(sourceNode, {
+    in: "SourceGraphic"
+});
 
-        }),
-
-        createSVGElement("feMergeNode", {
-
-            in: "SourceGraphic"
-
-        })
-
-    );
+appendChildren(
+    merge,
+    blurNode,
+    sourceNode
+);
+    
 
     return createFilter(
 
@@ -2467,23 +2387,23 @@ export function createParticleGlowFilter() {
 
     const merge = createSVGElement("feMerge");
 
-    appendChildren(
+    const glowNode = createSVGElement("feMergeNode");
 
-        merge,
+setAttributes(glowNode, {
+    in: "glow"
+});
 
-        createSVGElement("feMergeNode", {
+const sourceNode = createSVGElement("feMergeNode");
 
-            in: "glow"
+setAttributes(sourceNode, {
+    in: "SourceGraphic"
+});
 
-        }),
-
-        createSVGElement("feMergeNode", {
-
-            in: "SourceGraphic"
-
-        })
-
-    );
+appendChildren(
+    merge,
+    glowNode,
+    sourceNode
+);
 
     return createFilter(
 
