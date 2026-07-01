@@ -1,263 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Animated Bouquet</title>
 
-    <link rel="stylesheet" href="style.css" />
+    <meta name="description" content="Animated SVG bouquet composition.">
 </head>
+
 <body>
 
-    <!-- ==========================================================
-         BACKGROUND
-    =========================================================== -->
+    <a href="#main-content">Skip to main content</a>
 
-    <div class="background">
+    <main id="main-content">
 
-        <div class="vignette"></div>
+        <!-- ========================================================= -->
+        <!-- Scene -->
+        <!-- ========================================================= -->
 
-        <div class="ambient-glow"></div>
+        <section
+            id="scene"
+            aria-labelledby="scene-title"
+            role="img">
 
-        <div id="particle-layer" aria-hidden="true"></div>
+            <h1 id="scene-title">
+                Animated Floral Bouquet
+            </h1>
 
-    </div>
+            <!-- ===================================================== -->
+            <!-- Background Layer -->
+            <!-- ===================================================== -->
 
+            <div
+                id="background-layer"
+                aria-hidden="true">
 
-    <!-- ==========================================================
-         MAIN SCENE
-    =========================================================== -->
+                <svg
+                    id="background-svg"
+                    viewBox="0 0 1080 1920"
+                    xmlns="http://www.w3.org/2000/svg"
+                    focusable="false"
+                    aria-hidden="true"
+                    preserveAspectRatio="xMidYMid slice">
 
-    <main class="scene">
+                    <defs>
 
-        <!-- Floating title / message -->
+                        <!-- Background -->
+                        <radialGradient id="background-gradient"></radialGradient>
 
-        <div class="message-wrapper">
+                        <!-- Ambient -->
+                        <filter id="ambient-glow"></filter>
 
-            <div class="message">
-                <span class="message-text">
-                    <!-- Replace with exact reference text -->
-                </span>
+                        <!-- Bloom -->
+                        <filter id="bloom-filter"></filter>
+
+                        <!-- Soft Blur -->
+                        <filter id="soft-blur"></filter>
+
+                        <!-- Vignette -->
+                        <radialGradient id="vignette-gradient"></radialGradient>
+
+                    </defs>
+
+                    <g id="background-render-layer"></g>
+
+                    <g id="lighting-render-layer"></g>
+
+                    <g id="vignette-render-layer"></g>
+
+                </svg>
+
             </div>
 
-        </div>
+            <!-- ===================================================== -->
+            <!-- Particle Layer -->
+            <!-- ===================================================== -->
 
+            <div
+                id="particle-layer"
+                aria-hidden="true">
 
-        <!-- Bouquet -->
+                <svg
+                    id="particle-svg"
+                    viewBox="0 0 1080 1920"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid slice"
+                    focusable="false"
+                    aria-hidden="true">
 
-        <section class="bouquet-wrapper">
+                    <defs>
 
-            <svg
-                id="bouquet"
-                viewBox="0 0 600 900"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-label="Animated flower bouquet"
-            >
+                        <filter id="particle-glow"></filter>
 
-                <defs>
+                    </defs>
 
-                    <!-- Glow filters -->
+                    <g id="particle-container"></g>
 
-                    <filter id="flowerGlow">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
-                        <feMerge>
-                            <feMergeNode in="blur"/>
-                            <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                    </filter>
+                    <g id="firefly-container"></g>
 
-                    <filter id="softGlow">
-                        <feGaussianBlur stdDeviation="8"/>
-                    </filter>
+                </svg>
 
-                </defs>
+            </div>
 
+            <!-- ===================================================== -->
+            <!-- Message Layer -->
+            <!-- ===================================================== -->
 
-                <!-- ==================================================
-                     SHADOW
-                =================================================== -->
+            <section
+                id="message-layer"
+                aria-label="Animated message">
 
-                <ellipse
-                    id="bouquet-shadow"
-                    class="shadow"
-                    cx="300"
-                    cy="835"
-                    rx="110"
-                    ry="18"
-                />
+                <header id="message-container">
 
+                    <h2 id="headline"></h2>
 
+                    <p id="subheadline"></p>
 
-                <!-- ==================================================
-                     STEMS
-                =================================================== -->
+                </header>
 
-                <g id="stems">
+            </section>
 
-                    <path id="stem-1" class="stem"/>
-                    <path id="stem-2" class="stem"/>
-                    <path id="stem-3" class="stem"/>
-                    <path id="stem-4" class="stem"/>
-                    <path id="stem-5" class="stem"/>
-                    <path id="stem-6" class="stem"/>
-                    <path id="stem-7" class="stem"/>
-                    <path id="stem-8" class="stem"/>
-                    <path id="stem-9" class="stem"/>
+            <!-- ===================================================== -->
+            <!-- Bouquet Layer -->
+            <!-- ===================================================== -->
 
-                </g>
+            <section
+                id="bouquet-layer"
+                aria-label="Animated bouquet">
 
+                <svg
+                    id="bouquet-svg"
+                    viewBox="0 0 1080 1920"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="presentation"
+                    focusable="false"
+                    aria-hidden="true">
 
+                    <defs>
 
-                <!-- ==================================================
-                     LEAVES
-                =================================================== -->
+                        <filter id="flower-glow"></filter>
 
-                <g id="leaves">
+                        <filter id="petal-bloom"></filter>
 
-                    <path id="leaf-1" class="leaf"/>
-                    <path id="leaf-2" class="leaf"/>
-                    <path id="leaf-3" class="leaf"/>
-                    <path id="leaf-4" class="leaf"/>
-                    <path id="leaf-5" class="leaf"/>
-                    <path id="leaf-6" class="leaf"/>
-                    <path id="leaf-7" class="leaf"/>
-                    <path id="leaf-8" class="leaf"/>
-                    <path id="leaf-9" class="leaf"/>
-                    <path id="leaf-10" class="leaf"/>
-                    <path id="leaf-11" class="leaf"/>
-                    <path id="leaf-12" class="leaf"/>
+                        <filter id="stem-softening"></filter>
 
-                </g>
+                        <filter id="leaf-glow"></filter>
 
+                    </defs>
 
+                    <!-- Bouquet Root -->
 
-                <!-- ==================================================
-                     FLOWERS
-                =================================================== -->
+                    <g id="bouquet-root">
 
-                <g id="flowers">
+                        <!-- Stems -->
 
-                    <!-- White Flower 1 -->
+                        <g id="stem-layer"></g>
 
-                    <g id="white-flower-1" class="flower white-flower">
+                        <!-- Leaves -->
 
-                        <g class="petals"></g>
+                        <g id="leaf-layer"></g>
 
-                        <circle class="flower-center"/>
+                        <!-- Flower Geometry -->
 
-                    </g>
+                        <g id="flower-layer"></g>
 
+                        <!-- Flower Centers -->
 
-                    <!-- White Flower 2 -->
+                        <g id="flower-center-layer"></g>
 
-                    <g id="white-flower-2" class="flower white-flower">
+                        <!-- Highlight Effects -->
 
-                        <g class="petals"></g>
+                        <g id="highlight-layer"></g>
 
-                        <circle class="flower-center"/>
+                        <!-- Ambient Glow -->
+
+                        <g id="glow-layer"></g>
 
                     </g>
 
+                </svg>
 
-                    <!-- White Flower 3 -->
+            </section>
 
-                    <g id="white-flower-3" class="flower white-flower">
+            <!-- ===================================================== -->
+            <!-- Overlay Layer -->
+            <!-- ===================================================== -->
 
-                        <g class="petals"></g>
+            <div
+                id="overlay-layer"
+                aria-hidden="true">
 
-                        <circle class="flower-center"/>
+                <svg
+                    id="overlay-svg"
+                    viewBox="0 0 1080 1920"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid meet">
 
-                    </g>
+                    <g id="overlay-effects"></g>
 
+                </svg>
 
-                    <!-- Tulips -->
+            </div>
 
-                    <g id="tulip-1" class="flower tulip">
+            <!-- ===================================================== -->
+            <!-- Watermark -->
+            <!-- ===================================================== -->
 
-                        <g class="bud"></g>
+            <footer
+                id="watermark-layer"
+                aria-label="Creator attribution">
 
-                    </g>
+                <div id="watermark-container">
 
-                    <g id="tulip-2" class="flower tulip">
+                    <svg
+                        id="watermark-svg"
+                        viewBox="0 0 400 160"
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-labelledby="watermark-title">
 
-                        <g class="bud"></g>
+                        <title id="watermark-title">
+                            Watermark
+                        </title>
 
-                    </g>
+                        <g id="watermark-icon"></g>
 
-                    <g id="tulip-3" class="flower tulip">
+                        <g id="watermark-text"></g>
 
-                        <g class="bud"></g>
+                    </svg>
 
-                    </g>
+                </div>
 
-
-                    <!-- Blue Flowers -->
-
-                    <g id="red-flower-1" class="flower blue-flower">
-
-                        <g class="petals"></g>
-
-                        <circle class="flower-center"/>
-
-                    </g>
-
-                    <g id="blue-flower-2" class="flower blue-flower">
-
-                        <g class="petals"></g>
-
-                        <circle class="flower-center"/>
-
-                    </g>
-
-
-                    <!-- Sunflowers -->
-
-                    <g id="sunflower-1" class="flower sunflower">
-
-                        <g class="petals"></g>
-
-                        <circle class="flower-center"/>
-
-                    </g>
-
-                    <g id="sunflower-2" class="flower sunflower">
-
-                        <g class="petals"></g>
-
-                        <circle class="flower-center"/>
-
-                    </g>
-
-                </g>
-
-
-                <!-- Bouquet tie -->
-
-                <g id="bouquet-base">
-
-                    <path id="tie"/>
-
-                </g>
-
-            </svg>
+            </footer>
 
         </section>
 
-
-        <!-- Watermark -->
-
-        <div class="watermark">
-
-            <span class="watermark-icon"></span>
-
-            <span class="watermark-text"></span>
-
-        </div>
-
     </main>
-
-
-    <script src="script.js"></script>
 
 </body>
 </html>
