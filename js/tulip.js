@@ -11,9 +11,7 @@ import {
     appendChildren
 } from "./svg.js";
 
-import {
-    STEM_COLORS
-} from "./stems.js";
+import { STEM_COLORS } from "./constants.js";
 
 /* ============================================================================
    Tulip Configuration
