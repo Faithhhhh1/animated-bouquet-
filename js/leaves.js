@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * Animated Bouquet
- * File: leaves.js
+ * File: leaves.js (FIXED)
  * ============================================================================
  */
 
@@ -11,36 +11,31 @@ import {
     appendChildren
 } from "./svg.js";
 
-import {
-    STEM_ORIGIN,
-    STEM_COLORS,
-    STEM_WIDTHS
-} from "./stems.js";
+/* ============================================================================
+   LOCAL COLORS (NO STEM DEPENDENCY)
+============================================================================ */
+
+const LEAF_COLORS = {
+    LIGHT: "#8DBA92",
+    DARK: "#355238"
+};
 
 /* ============================================================================
-   Leaf Config
+   CONFIG
 ============================================================================ */
 
 export const LEAF_CONFIG = Object.freeze({
-
     SIZE_MIN: 18,
     SIZE_MAX: 42,
-
-    COUNT_PER_STEM: 2,
-
     SPREAD_X: 18,
     SPREAD_Y: 40
-
 });
 
 /* ============================================================================
-   Leaf Path Generator
+   LEAF SHAPE
 ============================================================================ */
 
-/**
- * Creates a simple organic leaf shape using cubic Bézier curves.
- */
-export function createLeafPath(x, y, size, rotation = 0) {
+function createLeafPath(x, y, size) {
 
     const half = size / 2;
 
@@ -57,31 +52,30 @@ export function createLeafPath(x, y, size, rotation = 0) {
 }
 
 /* ============================================================================
-   Create Single Leaf
+   SINGLE LEAF
 ============================================================================ */
 
-export function createLeaf(x, y, size, side = 1) {
+function createLeaf(x, y, size, side = 1) {
 
     const path = createLeafPath(x, y, size);
 
     return createPath(path, {
-
-        fill: STEM_COLORS.LIGHT,
-        stroke: STEM_COLORS.DARK,
+        fill: LEAF_COLORS.LIGHT,
+        stroke: LEAF_COLORS.DARK,
         strokeWidth: 1,
         opacity: 0.85,
         transform: `rotate(${side * 25} ${x} ${y})`
-
     });
 }
 
 /* ============================================================================
-   Leaf Pair (left/right symmetry)
+   LEAF PAIR
 ============================================================================ */
 
-export function createLeafPair(x, y) {
+function createLeafPair(x, y) {
 
-    const size = LEAF_CONFIG.SIZE_MIN +
+    const size =
+        LEAF_CONFIG.SIZE_MIN +
         Math.random() * (LEAF_CONFIG.SIZE_MAX - LEAF_CONFIG.SIZE_MIN);
 
     return [
@@ -91,12 +85,9 @@ export function createLeafPair(x, y) {
 }
 
 /* ============================================================================
-   Attach Leaves to Stem Points
+   ATTACH TO STEM POINTS
 ============================================================================ */
 
-/**
- * Attaches leaves along a stem path.
- */
 export function attachLeavesToStem(points = []) {
 
     const group = createGroup({
@@ -108,15 +99,12 @@ export function attachLeavesToStem(points = []) {
     for (let i = 0; i < points.length; i++) {
 
         const p = points[i];
-
         if (!p) continue;
 
-        const shouldPlace = i % 2 === 0;
+        if (i % 2 !== 0) continue;
 
-        if (!shouldPlace) continue;
-
-        const offsetY = Math.random() * LEAF_CONFIG.SPREAD_Y;
         const offsetX = (Math.random() - 0.5) * LEAF_CONFIG.SPREAD_X;
+        const offsetY = Math.random() * LEAF_CONFIG.SPREAD_Y;
 
         leaves.push(
             ...createLeafPair(
