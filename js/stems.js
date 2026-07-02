@@ -1,39 +1,10 @@
-/**
- * ============================================================================
- * stems.js (FIXED - EXPORT SAFE VERSION)
- * ============================================================================
- */
-
 import {
     createGroup,
     createPath,
     appendChildren
 } from "./svg.js";
 
-/* ============================================================================
-   EXPORTED CONSTANTS (IMPORTANT FIX)
-============================================================================ */
-
-export const STEM_COLORS = Object.freeze({
-    BASE: "#4F7152",
-    DARK: "#355238",
-    LIGHT: "#739679",
-    HIGHLIGHT: "#8DBA92",
-    SHADOW: "#29402C"
-});
-
-export const STEM_WIDTHS = Object.freeze({
-    THIN: 2,
-    SMALL: 3,
-    MEDIUM: 5,
-    LARGE: 7,
-    HERO: 9
-});
-
-export const STEM_ORIGIN = Object.freeze({
-    x: 540,
-    y: 1760
-});
+import { STEM_COLORS, STEM_WIDTHS, STEM_ORIGIN } from "./constants.js";
 
 /* ============================================================================
    GEOMETRY HELPERS
