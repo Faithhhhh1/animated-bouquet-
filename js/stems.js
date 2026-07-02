@@ -1,3 +1,9 @@
+/**
+ * ============================================================================
+ * stems.js (FIXED - EXPORT SAFE VERSION)
+ * ============================================================================
+ */
+
 import {
     createGroup,
     createPath,
@@ -5,7 +11,7 @@ import {
 } from "./svg.js";
 
 /* ============================================================================
-   EXPORTED CONSTANTS (FIX FOR YOUR ERROR)
+   EXPORTED CONSTANTS (IMPORTANT FIX)
 ============================================================================ */
 
 export const STEM_COLORS = Object.freeze({
@@ -24,8 +30,13 @@ export const STEM_WIDTHS = Object.freeze({
     HERO: 9
 });
 
+export const STEM_ORIGIN = Object.freeze({
+    x: 540,
+    y: 1760
+});
+
 /* ============================================================================
-   GEOMETRY
+   GEOMETRY HELPERS
 ============================================================================ */
 
 function createControlPoint(start, end) {
@@ -73,8 +84,8 @@ function createHeroStem(start, control, end) {
     });
 
     const main = createStem(start, control, end, {
-        stroke: STEM_COLORS.BASE,
-        strokeWidth: STEM_WIDTHS.HERO
+        strokeWidth: STEM_WIDTHS.HERO,
+        stroke: STEM_COLORS.BASE
     });
 
     appendChildren(g, shadow, main);
@@ -86,13 +97,13 @@ function createHeroStem(start, control, end) {
    STEM GENERATION
 ============================================================================ */
 
-function generateStem(type, origin) {
+function generateStem(type = "main") {
 
-    const start = { ...origin };
+    const start = { ...STEM_ORIGIN };
 
     const end = {
-        x: origin.x + (Math.random() - 0.5) * 300,
-        y: origin.y - (500 + Math.random() * 300)
+        x: STEM_ORIGIN.x + (Math.random() - 0.5) * 300,
+        y: STEM_ORIGIN.y - (500 + Math.random() * 300)
     };
 
     const control = createControlPoint(start, end);
@@ -103,7 +114,7 @@ function generateStem(type, origin) {
     return createStem(start, control, end);
 }
 
-function generateStemField(count = 14, origin = { x: 540, y: 1760 }) {
+function generateStemField(count = 14) {
 
     const group = createGroup({ id: "generated-stems" });
 
@@ -116,7 +127,7 @@ function generateStemField(count = 14, origin = { x: 540, y: 1760 }) {
             i % 4 === 0 ? "branch" :
             "main";
 
-        stems.push(generateStem(type, origin));
+        stems.push(generateStem(type));
     }
 
     appendChildren(group, stems);
@@ -125,7 +136,7 @@ function generateStemField(count = 14, origin = { x: 540, y: 1760 }) {
 }
 
 /* ============================================================================
-   MAIN EXPORT
+   PUBLIC API
 ============================================================================ */
 
 export function createStemLayer() {
