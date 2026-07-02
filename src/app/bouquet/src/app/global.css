@@ -1,0 +1,375 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== Base ========== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ========== Accessibility — Focus Ring ========== */
+:focus-visible {
+  outline: 2px solid #e84057;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ========== Custom Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #faf8f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4ccc4;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b4a89c;
+}
+
+/* ========== Typography ========== */
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+.font-display {
+  font-family: var(--font-display), serif;
+}
+.font-serif {
+  font-family: var(--font-serif), serif;
+}
+.font-body {
+  font-family: var(--font-body), sans-serif;
+}
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* ========== Flower Selection ========== */
+.flower-card {
+  @apply relative cursor-pointer transition-all duration-300 ease-out;
+  @apply rounded-2xl p-3 border-2 border-transparent;
+  @apply hover:scale-105 hover:shadow-lg;
+}
+.flower-card.selected {
+  @apply border-bloom-rose shadow-lg scale-105;
+  background: rgba(232, 64, 87, 0.05);
+}
+.flower-card .flower-info {
+  @apply opacity-0 absolute bottom-0 left-0 right-0 p-2 text-center;
+  @apply bg-white/95 backdrop-blur-sm rounded-b-2xl;
+  @apply transition-opacity duration-300;
+  font-size: 0.7rem;
+}
+.flower-card:hover .flower-info {
+  @apply opacity-100;
+}
+
+/* ========== Vase Selection ========== */
+.vase-card {
+  @apply cursor-pointer transition-all duration-300 ease-out p-4 rounded-2xl;
+  @apply border-2 border-gray-200 hover:border-bloom-rose hover:shadow-md;
+}
+.vase-card.selected {
+  @apply border-bloom-rose shadow-md;
+  background: rgba(232, 64, 87, 0.05);
+}
+
+/* ========== Card / Letter ========== */
+.letter-card {
+  @apply bg-white p-6 md:p-8 shadow-md;
+  font-family: var(--font-mono), monospace;
+  border: 1px solid #e8e0d8;
+  position: relative;
+  line-height: 1.8;
+}
+.letter-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      #e8e8e8 31px,
+      #e8e8e8 32px
+    );
+  pointer-events: none;
+  opacity: 0.4;
+}
+.letter-card textarea,
+.letter-card input {
+  font-family: var(--font-mono), monospace;
+  background: transparent;
+  line-height: 1.8;
+}
+
+/* ========== Buttons ========== */
+.btn-primary {
+  @apply px-8 py-3 bg-charcoal text-white font-display text-sm tracking-widest;
+  @apply hover:bg-bloom-rose transition-colors duration-300;
+  letter-spacing: 0.15em;
+}
+.btn-secondary {
+  @apply px-8 py-3 border-2 border-charcoal text-charcoal font-display text-sm tracking-widest;
+  @apply hover:bg-charcoal hover:text-white transition-all duration-300;
+  letter-spacing: 0.15em;
+}
+.btn-ghost {
+  @apply px-6 py-2 text-charcoal font-display text-sm tracking-widest underline underline-offset-4;
+  @apply hover:text-bloom-rose transition-colors duration-300;
+  letter-spacing: 0.1em;
+}
+
+/* ========== Romantic Valentine Buttons ========== */
+.romantic-btn-primary {
+  @apply px-8 py-3 font-display text-sm tracking-widest;
+  @apply transition-all duration-300;
+  letter-spacing: 0.15em;
+  background: rgba(255, 255, 255, 0.95);
+  color: #b85070;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(140, 40, 70, 0.25);
+}
+.romantic-btn-primary:hover {
+  background: #fff;
+  color: #8b1a3a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(140, 40, 70, 0.35);
+}
+
+.romantic-btn-secondary {
+  @apply px-8 py-3 font-display text-sm tracking-widest;
+  @apply transition-all duration-300;
+  letter-spacing: 0.15em;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+}
+.romantic-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+.romantic-btn-ghost {
+  @apply px-6 py-2 font-display text-sm tracking-widest underline underline-offset-4;
+  @apply transition-colors duration-300;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.8);
+}
+.romantic-btn-ghost:hover {
+  color: #fff;
+}
+
+/* ========== Petal Animation ========== */
+.petal {
+  position: fixed;
+  top: -20px;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+}
+
+.petal-shape {
+  width: 15px;
+  height: 20px;
+  border-radius: 50% 0 50% 50%;
+  transform-origin: center;
+}
+
+@keyframes petalDrift {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.9;
+  }
+  25% {
+    transform: translateY(25vh) translateX(30px) rotate(180deg) scale(0.95);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-20px) rotate(360deg) scale(0.9);
+  }
+  75% {
+    transform: translateY(75vh) translateX(40px) rotate(540deg) scale(0.85);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(105vh) translateX(10px) rotate(720deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* ========== Background Floating Flowers ========== */
+@keyframes bgFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--tw-rotate, 0deg));
+  }
+  33% {
+    transform: translateY(-10px) rotate(var(--tw-rotate, 0deg)) scale(1.03);
+  }
+  66% {
+    transform: translateY(6px) rotate(var(--tw-rotate, 0deg)) scale(0.97);
+  }
+}
+
+/* ========== Bloom Effect ========== */
+.bloom-container {
+  opacity: 0;
+  transform: scale(0);
+}
+.bloom-container.bloomed {
+  animation: bloomIn 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bloomIn {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  40% { opacity: 0.7; }
+  70% { transform: scale(1.08) rotate(3deg); opacity: 0.95; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* ========== Step Progress ========== */
+.step-dot {
+  @apply w-3 h-3 rounded-full transition-all duration-300;
+}
+.step-dot.active {
+  @apply bg-bloom-rose scale-125;
+}
+.step-dot.completed {
+  @apply bg-bloom-leaf;
+}
+.step-dot.pending {
+  @apply bg-gray-300;
+}
+.step-line {
+  @apply h-0.5 flex-1 mx-1 transition-all duration-500;
+}
+.step-line.completed {
+  @apply bg-bloom-leaf;
+}
+.step-line.pending {
+  @apply bg-gray-200;
+}
+
+/* ========== Bouquet Renderer ========== */
+.bouquet-wrapper {
+  position: relative;
+  width: 340px;
+  height: 408px;
+}
+.bouquet-flower {
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+/* ========== Theme Backgrounds ========== */
+.theme-classic { background-color: #faf8f5; color: #2d2a26; }
+.theme-romantic { background-color: #fff0f5; color: #4a2030; }
+.theme-spring { background-color: #f0fff4; color: #1a3a2a; }
+.theme-sunset { background-color: #fff8f0; color: #3d2a1a; }
+.theme-midnight { background-color: #1a1a2e; color: #e8e8f0; }
+.theme-ocean { background-color: #e8f4f8; color: #1a3040; }
+
+/* ========== Tooltip ========== */
+.tooltip {
+  @apply invisible opacity-0 absolute z-10 px-3 py-2 text-xs bg-charcoal text-white rounded-lg;
+  @apply transition-all duration-200 -top-2 left-1/2 -translate-x-1/2 -translate-y-full;
+  white-space: nowrap;
+}
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #2d2a26;
+}
+.group:hover .tooltip {
+  @apply visible opacity-100;
+}
+
+/* ========== Music Player ========== */
+.music-btn {
+  @apply fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full;
+  @apply bg-white shadow-lg flex items-center justify-center;
+  @apply hover:scale-110 transition-transform duration-200;
+}
+.music-btn.playing {
+  @apply animate-pulse-glow;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 640px) {
+  .bouquet-wrapper {
+    width: 280px;
+    height: 336px;
+  }
+  .letter-card {
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* ========== QR Code Container ========== */
+.qr-container {
+  @apply p-4 bg-white rounded-xl shadow-sm inline-block;
+}
+
+/* ========== Download Section ========== */
+#bouquet-capture {
+  @apply relative;
+}
+
+/* ========== Selection counter badge ========== */
+.count-badge {
+  @apply absolute -top-2 -right-2 w-5 h-5 rounded-full bg-bloom-rose text-white;
+  @apply text-xs flex items-center justify-center font-bold;
+}
+
+/* ========== Occasion tag ========== */
+.occasion-tag {
+  @apply px-4 py-2 rounded-full border-2 border-gray-200 cursor-pointer;
+  @apply transition-all duration-200 text-sm;
+  @apply hover:border-bloom-rose hover:bg-bloom-rose/5;
+}
+.occasion-tag.selected {
+  @apply border-bloom-rose bg-bloom-rose/10 text-bloom-rose font-medium;
+}
+
+/* ========== Theme card ========== */
+.theme-card {
+  @apply w-16 h-16 rounded-xl cursor-pointer border-2 border-transparent;
+  @apply transition-all duration-200 hover:scale-110;
+}
+.theme-card.selected {
+  @apply border-bloom-rose scale-110 shadow-md;
+}
