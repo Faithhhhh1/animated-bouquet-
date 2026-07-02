@@ -4,17 +4,13 @@
  * File: lily.js
  * ============================================================================
  */
-
 import {
     createGroup,
     createPath,
     appendChildren
 } from "./svg.js";
 
-import {
-    STEM_COLORS,
-    STEM_WIDTHS
-} from "./stems.js";
+import { STEM_COLORS } from "./constants.js";
 
 /* ============================================================================
    Lily Configuration
