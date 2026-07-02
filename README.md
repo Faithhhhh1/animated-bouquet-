@@ -73,8 +73,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/ayushagnihotrii/Didital_bouquet.git
-
+git clone https://faithhhhh1.github.io/animated-bouquet/
 # Navigate to the project
 cd Didital_bouquet
 
