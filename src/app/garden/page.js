@@ -9,8 +9,47 @@ import BouquetRenderer from '@/components/BouquetRenderer';
 export default function GardenPage() {
   const [garden, setGarden] = useState([]);
   const [favorites, setFavorites] = useState({});
-  const [filter, setFilter] = useState('all'); // all, favorites
+  const [filter, setFilter] = useState('all');
   const [mounted, setMounted] = useState(false);
+
+  // 🔒 ADMIN PASSWORD START
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [password, setPassword] = useState("");
+
+  if (!isAdmin) {
+    return (
+      <main className="min-h-screen flex items-center justify-center relative z-10">
+        <div className="bg-white/80 p-8 rounded-3xl text-center shadow-lg">
+          <h1 className="text-3xl mb-5">
+            🌸 Admin Garden
+          </h1>
+
+          <input
+            type="password"
+            placeholder="Enter password"
+            className="border p-3 rounded-xl text-black"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button
+            className="block mx-auto mt-5 px-6 py-3 rounded-full bg-pink-500 text-white"
+            onClick={() => {
+              if (password === "ArsthLivesForYou!!") {
+                setIsAdmin(true);
+              } else {
+                alert("Wrong password");
+              }
+            }}
+          >
+            Enter Garden
+          </button>
+        </div>
+      </main>
+    );
+  }
+  // 🔒 ADMIN PASSWORD END
+
 
   useEffect(() => {
     setMounted(true);
