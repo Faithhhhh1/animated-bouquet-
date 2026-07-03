@@ -45,7 +45,7 @@ export default function HomePage() {
           className={`space-y-4 transition-all duration-700 delay-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
         >
-          <Link href="/build" className="romantic-btn-primary block mx-auto max-w-xs text-center">
+          <Link href="/animated-bouquet/build" className="romantic-btn-primary block mx-auto max-w-xs text-center">
             BUILD A BOUQUET
           </Link>
 
@@ -53,7 +53,7 @@ export default function HomePage() {
             BUILD IT IN BLACK AND WHITE
           </Link>
 
-          <Link href="/garden" className="romantic-btn-ghost block mx-auto">
+          <Link href="/animated-bouquet/garden" className="romantic-btn-ghost block mx-auto">
             VIEW GARDEN
           </Link>
         </div>
