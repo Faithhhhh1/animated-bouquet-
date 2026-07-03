@@ -94,8 +94,8 @@ function BuildContent() {
     const encoded = encodeBouquet(data);
     if (encoded) {
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-      const url = `${baseUrl}/bouquet?d=${encoded}`;
-      setShareUrl(url);
+const url = `${baseUrl}/animated-bouquet/bouquet?d=${encoded}`;
+setShareUrl(url);
 
       // Save to garden
       saveBouquetToGarden({
